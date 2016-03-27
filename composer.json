@@ -1,0 +1,17 @@
+{
+    "name": "albhilazo/sqs-php-bundle",
+    "description": "A bundle to help using Amazon SQS queues in PHP",
+    "license": "MIT",
+    "homepage": "https://github.com/albhilazo/sqs-php-bundle",
+    "type": "project",
+    "require": {
+        "php": ">=5.6",
+        "aws/aws-sdk-php": "^3.17"
+    },
+    "authors": [
+        {
+            "name": "Albert Hilazo",
+            "email": "albhilazo@gmail.com"
+        }
+    ]
+}
