@@ -15,7 +15,7 @@ class WorkerStartCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('worker:start')
+            ->setName('sqs:worker:start')
             ->setDescription('Start a worker that will listen to the SQS queue')
         ;
     }
