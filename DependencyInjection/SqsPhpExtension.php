@@ -2,7 +2,7 @@
 
 namespace SqsPhpBundle\DependencyInjection;
 
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\Config\FileLocator;
@@ -10,14 +10,11 @@ use Symfony\Component\Config\FileLocator;
 
 
 
-class SqsPhpExtension extends Extension
+class SqsPhpExtension extends ConfigurableExtension
 {
 
-    public function load(array $configs, ContainerBuilder $container)
+    protected function loadInternal(array $config, ContainerBuilder $container)
     {
-        $configuration = new Configuration();
-        $config = $this->processConfiguration($configuration, $configs);
-
         $loader = new YamlFileLoader(
             $container,
             new FileLocator(__DIR__.'/services')
