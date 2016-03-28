@@ -3,6 +3,7 @@
 namespace SqsPhpBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -17,6 +18,11 @@ class WorkerStartCommand extends ContainerAwareCommand
         $this
             ->setName('sqs:worker:start')
             ->setDescription('Start a worker that will listen to the SQS queue')
+            ->addArgument(
+                'queue_id',
+                InputArgument::REQUIRED,
+                'Queue ID specified in app config'
+            )
         ;
     }
 
@@ -27,11 +33,11 @@ class WorkerStartCommand extends ContainerAwareCommand
     {
         $container = $this->getContainer();
 
-        $worker = $container->get('sqs_worker');
-        $queues = $container->getParameter('sqs_php.queues');
+        $worker   = $container->get('sqs_worker');
+        $queues   = $container->getParameter('sqs_php.queues');
+        $queue_id = $input->getArgument('queue_id');
 
-        var_dump($queues);
-        $worker->start();
+        $worker->start($queues[$queue_id]);
     }
 
 }
