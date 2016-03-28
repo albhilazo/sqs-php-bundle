@@ -25,7 +25,12 @@ class WorkerStartCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $worker = $this->getContainer()->get('sqs_worker');
+        $container = $this->getContainer();
+
+        $worker = $container->get('sqs_worker');
+        $queues = $container->getParameter('sqs_php.queues');
+
+        var_dump($queues);
         $worker->start();
     }
 

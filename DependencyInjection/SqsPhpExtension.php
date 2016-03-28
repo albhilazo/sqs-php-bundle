@@ -20,6 +20,8 @@ class SqsPhpExtension extends ConfigurableExtension
             new FileLocator(__DIR__.'/services')
         );
         $loader->load('services.yml');
+
+        $container->setParameter('sqs_php.queues', $config['queues']);
     }
 
 }
