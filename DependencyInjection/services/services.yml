@@ -1,0 +1,4 @@
+services:
+  sqs_worker:
+    class: SqsPhpBundle\Worker\Worker
+    arguments:
