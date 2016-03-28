@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use SqsPhpBundle\Queue\Queue;
 
 
 
@@ -34,12 +35,15 @@ class WorkerStartCommand extends ContainerAwareCommand
         $container = $this->getContainer();
 
         $queue_id = $input->getArgument('queue_id');
-        $worker   = $container->get('sqs_worker');
-        $queue    = $container->getParameter(
+        $queue_parameters = $container->getParameter(
             sprintf('sqs_php.queue.%s', $queue_id)
         );
+        $queue = new Queue($queue_parameters);
 
-        $worker->start($queue);
+        $worker_factory = $container->get('sqs_worker.factory');
+        $worker = $worker_factory->build($queue);
+
+        $worker->start();
     }
 
 }
