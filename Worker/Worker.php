@@ -25,9 +25,28 @@ class Worker
 
     public function start()
     {
-        var_dump($this->sqs_client);
-        var_dump($this->queue_url);
-        echo "starting";
+        while (true) {
+            $this->fetchMessage();
+        }
+    }
+
+
+
+
+    private function fetchMessage()
+    {
+        $result = $this->sqs_client->receiveMessage(array(
+            'QueueUrl' => $this->queue_url,
+        ));
+
+        if (!$result->hasKey('Messages')) {
+            return;
+        }
+
+        $all_messages = $result->get('Messages');
+        foreach ($all_messages as $message) {
+            var_dump($message);
+        }
     }
 
 }
