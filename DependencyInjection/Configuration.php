@@ -18,10 +18,12 @@ class Configuration implements ConfigurationInterface
 
         $root_node
             ->children()
-                ->arrayNode('queue')
-                    ->children()
-                        ->scalarNode('region')->end()
-                        ->scalarNode('url')->end()
+                ->arrayNode('queues')
+                    ->prototype('array')
+                        ->children()
+                            ->scalarNode('region')->end()
+                            ->scalarNode('url')->end()
+                        ->end()
                     ->end()
                 ->end()
             ->end()
