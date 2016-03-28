@@ -1,4 +1,4 @@
 services:
-  sqs_worker:
-    class: SqsPhpBundle\Worker\Worker
+  sqs_worker.factory:
+    class: SqsPhpBundle\Worker\WorkerFactory
     arguments:
