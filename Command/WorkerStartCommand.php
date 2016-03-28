@@ -33,11 +33,13 @@ class WorkerStartCommand extends ContainerAwareCommand
     {
         $container = $this->getContainer();
 
-        $worker   = $container->get('sqs_worker');
-        $queues   = $container->getParameter('sqs_php.queues');
         $queue_id = $input->getArgument('queue_id');
+        $worker   = $container->get('sqs_worker');
+        $queue    = $container->getParameter(
+            sprintf('sqs_php.queue.%s', $queue_id)
+        );
 
-        $worker->start($queues[$queue_id]);
+        $worker->start($queue);
     }
 
 }

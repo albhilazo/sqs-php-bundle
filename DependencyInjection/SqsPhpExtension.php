@@ -21,7 +21,12 @@ class SqsPhpExtension extends ConfigurableExtension
         );
         $loader->load('services.yml');
 
-        $container->setParameter('sqs_php.queues', $config['queues']);
+        foreach ($config['queues'] as $queue_id => $queue_parameters) {
+            $container->setParameter(
+                sprintf('sqs_php.queue.%s', $queue_id),
+                $queue_parameters
+            );
+        }
     }
 
 }
