@@ -10,14 +10,16 @@ class Worker
 
     private $sqs_client;
     private $queue_url;
+    private $callable;
 
 
 
 
-    public function __construct($an_sqs_client, $a_queue_url)
+    public function __construct($an_sqs_client, $a_queue_url, $a_callable)
     {
         $this->sqs_client = $an_sqs_client;
         $this->queue_url  = $a_queue_url;
+        $this->callable   = $a_callable;
     }
 
 
@@ -45,7 +47,7 @@ class Worker
 
         $all_messages = $result->get('Messages');
         foreach ($all_messages as $message) {
-            var_dump($message);
+            call_user_func($this->callable, $message['Body']);
         }
     }
 

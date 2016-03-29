@@ -17,7 +17,7 @@ class WorkerFactory
             'version' => '2012-11-05',
             'region'  => $a_queue->region()
         ));
-        return new Worker($client, $a_queue->url());
+        return new Worker($client, $a_queue->url(), $a_queue->worker());
     }
 
 }
