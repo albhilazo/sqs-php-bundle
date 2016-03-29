@@ -10,6 +10,7 @@ class Queue
 
     private $region;
     private $url;
+    private $worker;
 
 
 
@@ -18,6 +19,7 @@ class Queue
     {
         $this->region = $queue_parameters['region'];
         $this->url    = $queue_parameters['url'];
+        $this->worker = $queue_parameters['worker'];
     }
 
 
@@ -34,6 +36,14 @@ class Queue
     public function url()
     {
         return $this->url;
+    }
+
+
+
+
+    public function worker()
+    {
+        return $this->worker;
     }
 
 }
