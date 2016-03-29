@@ -11,13 +11,22 @@ use Aws\Sqs\SqsClient;
 class WorkerFactory
 {
 
+    private $sqs_client;
+
+
+
+
+    public function __construct(SqsClient $an_sqs_client)
+    {
+        $this->sqs_client = $an_sqs_client;
+    }
+
+
+
+
     public function build(Queue $a_queue)
     {
-        $client = new SqsClient(array(
-            'version' => '2012-11-05',
-            'region'  => $a_queue->region()
-        ));
-        return new Worker($client, $a_queue->url(), $a_queue->worker());
+        return new Worker($this->sqs_client, $a_queue->url(), $a_queue->worker());
     }
 
 }

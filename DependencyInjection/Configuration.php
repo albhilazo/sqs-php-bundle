@@ -21,7 +21,6 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('queues')
                     ->prototype('array')
                         ->children()
-                            ->scalarNode('region')->end()
                             ->scalarNode('url')->end()
                             ->arrayNode('worker')
                                 ->prototype('scalar')->end()

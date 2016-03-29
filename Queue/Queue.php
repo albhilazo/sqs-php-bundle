@@ -8,7 +8,6 @@ namespace SqsPhpBundle\Queue;
 class Queue
 {
 
-    private $region;
     private $url;
     private $worker;
 
@@ -17,17 +16,8 @@ class Queue
 
     public function __construct(array $queue_parameters)
     {
-        $this->region = $queue_parameters['region'];
         $this->url    = $queue_parameters['url'];
         $this->worker = $queue_parameters['worker'];
-    }
-
-
-
-
-    public function region()
-    {
-        return $this->region;
     }
 
 
