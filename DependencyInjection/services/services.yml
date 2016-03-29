@@ -1,4 +1,13 @@
+parameters:
+  sqs_php.aws_sqs_client.version: '2012-11-05'
+  sqs_php.region: 'eu-west-1'
+
 services:
+  sqs_php.aws_sqs_client:
+    class: Aws\Sqs\SqsClient
+    arguments:
+      - { version: "%sqs_php.aws_sqs_client.version%", region: "%sqs_php.region%" }
+
   sqs_worker.factory:
     class: SqsPhpBundle\Worker\WorkerFactory
     arguments:
