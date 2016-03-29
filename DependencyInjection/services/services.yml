@@ -8,7 +8,7 @@ services:
     arguments:
       - { version: "%sqs_php.aws_sqs_client.version%", region: "%sqs_php.region%" }
 
-  sqs_worker.factory:
+  sqs_php.worker.factory:
     class: SqsPhpBundle\Worker\WorkerFactory
     arguments:
       - "@sqs_php.aws_sqs_client"
