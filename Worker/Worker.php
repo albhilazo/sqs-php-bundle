@@ -2,6 +2,9 @@
 
 namespace SqsPhpBundle\Worker;
 
+use SqsPhpBundle\Queue\Queue;
+use Aws\Sqs\SqsClient;
+
 
 
 
@@ -15,11 +18,11 @@ class Worker
 
 
 
-    public function __construct($an_sqs_client, $a_queue_url, $a_callable)
+    public function __construct(SqsClient $an_sqs_client, Queue $a_queue)
     {
         $this->sqs_client = $an_sqs_client;
-        $this->queue_url  = $a_queue_url;
-        $this->callable   = $a_callable;
+        $this->queue_url  = $a_queue->url();
+        $this->callable   = $a_queue->worker();
     }
 
 

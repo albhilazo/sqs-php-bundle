@@ -26,7 +26,7 @@ class WorkerFactory
 
     public function build(Queue $a_queue)
     {
-        return new Worker($this->sqs_client, $a_queue->url(), $a_queue->worker());
+        return new Worker($this->sqs_client, $a_queue);
     }
 
 }
