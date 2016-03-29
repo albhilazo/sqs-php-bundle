@@ -11,3 +11,4 @@ services:
   sqs_worker.factory:
     class: SqsPhpBundle\Worker\WorkerFactory
     arguments:
+      - "@sqs_php.aws_sqs_client"
