@@ -50,10 +50,18 @@ class Worker
 
         $all_messages = $result->get('Messages');
         foreach ($all_messages as $message) {
-            call_user_func(
-                $this->callable,
-                $this->unserializeMessage($message['Body'])
-            );
+            try {
+                call_user_func(
+                    $this->callable,
+                    $this->unserializeMessage($message['Body'])
+                );
+            } catch(\Exception $e) {
+                echo $e;
+                continue;
+            }
+
+            // Delete message from queue if no error appeared
+            $this->deleteMessage($message['ReceiptHandle']);
         }
     }
 
@@ -63,6 +71,17 @@ class Worker
     protected function unserializeMessage($a_message)
     {
         return json_decode($a_message, true);
+    }
+
+
+
+
+    private function deleteMessage($a_message_receipt_handle)
+    {
+        $this->sqs_client->deleteMessage(array(
+            'QueueUrl'      => $this->queue_url,
+            'ReceiptHandle' => $a_message_receipt_handle
+        ));
     }
 
 }
