@@ -50,8 +50,19 @@ class Worker
 
         $all_messages = $result->get('Messages');
         foreach ($all_messages as $message) {
-            call_user_func($this->callable, $message['Body']);
+            call_user_func(
+                $this->callable,
+                $this->unserializeMessage($message['Body'])
+            );
         }
+    }
+
+
+
+
+    protected function unserializeMessage($a_message)
+    {
+        return json_decode($a_message, true);
     }
 
 }

@@ -38,8 +38,16 @@ class Client implements ContainerAwareInterface
 
         $this->sqs_client->sendMessage(array(
             'QueueUrl'    => $queue_parameters['url'],
-            'MessageBody' => $a_message
+            'MessageBody' => $this->serializeMessage($a_message)
         ));
+    }
+
+
+
+
+    protected function serializeMessage($a_message)
+    {
+        return json_encode($a_message);
     }
 
 }
