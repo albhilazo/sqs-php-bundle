@@ -134,7 +134,7 @@ To receive messages, the `sqs:worker:start` Symfony command is provided.
 $ bin/console sqs:worker:start <queue_id>
 ```
 
-To start a worker listening to the `foo_queue` whe would execute:
+To start a worker listening to the `foo_queue` we would execute:
 
 ```shell
 $ bin/console sqs:worker:start foo_queue
