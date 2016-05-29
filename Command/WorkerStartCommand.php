@@ -40,10 +40,8 @@ class WorkerStartCommand extends ContainerAwareCommand
         );
         $queue = new Queue($queue_parameters);
 
-        $worker_factory = $container->get('sqs_php.worker.factory');
-        $worker = $worker_factory->build($queue);
-
-        $worker->start();
+        $worker = $container->get('sqs_php.worker');
+        $worker->start($queue);
     }
 
 }
