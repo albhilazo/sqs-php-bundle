@@ -56,12 +56,15 @@ sqs_php:
         <queue_id>:  # An id of your choice, for example "db_queue"
             url: "%sqs_url%"  # required
             worker: ['<worker_class_path>', '<worker_static_method_to_call>']  # only to receive
+        <another_queue_id>:
+            url: "%sqs_url%"
+            worker: ['<worker_service_id>', '<worker_service_method_to_call>']
 ```
 
 The `queues` node accepts a list of queue configurations, each identified by a unique string.
 The configuration will change based on how the queue will be used in the application.
 If the application will be sending messages to the queue, only the `url` parameter is needed.
-If it will receive messages from the queue, the configuration must also specify a **static** worker callable that will be called with the received data.
+If it will receive messages from the queue, the configuration must also specify either a **static** worker callable or a service identifier with a method that will be called with the received data.
 
 The `url` configuration should be set using the application's parameters (`"%sqs_url%"`), which will be defined in the `app/config/parameters.yml` file.
 Here you can also declare an AWS region parameter that will default to `eu-west-1` if not specified.
